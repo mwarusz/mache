@@ -240,6 +240,7 @@ def run_deploy(args: argparse.Namespace) -> None:
             'extra_dependencies': extra_dependencies,
             'omit_dependencies': omit_dependencies,
             'include_jigsaw': False,
+            'macos_version': True,
         }
     )
 
