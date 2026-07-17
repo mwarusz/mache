@@ -902,6 +902,7 @@ def _write_bootstrap_pixi_toml_with_mache(
         'rattler-build = "*"',
         f'mache = "{_format_pixi_version_specifier(mache_version)}"',
     ]
+
     pixi_toml_path.write_text('\n'.join(lines) + '\n', encoding='utf-8')
 
 
@@ -990,9 +991,20 @@ def _write_bootstrap_pixi_toml_with_local_source(
         f'platforms = ["{_get_pixi_platform()}"]',
         'channel-priority = "strict"',
         '',
+    ]
+
+    if _get_pixi_platform() == 'osx-arm64':
+        lines.extend([
+          '[system-requirements]',
+          'macos = "26.0"',
+          '',
+        ])
+
+    lines.extend([
+        '',
         '[dependencies]',
         f'python = "{python_version}.*"',
-    ]
+        ])
 
     for name, spec in merged_dependencies.items():
         if name == 'python':
